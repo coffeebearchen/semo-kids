@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEMO Kids — 情绪小测试 MVP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+            background: #f7f7f7;
+        }
+        h1 {
+            color: #333;
+        }
+        .emoji-container {
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .emoji {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+        #result {
+            margin-top: 40px;
+            font-size: 20px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SEMO Kids 情绪小测试 😊</h1>
+    <p>请选择你现在的心情：</p>
+
+    <div class="emoji-container">
+        <span class="emoji" onclick="showResult('开心 😊')">😊</span>
+        <span class="emoji" onclick="showResult('生气 😡')">😡</span>
+        <span class="emoji" onclick="showResult('难过 😢')">😢</span>
+        <span class="emoji" onclick="showResult('害怕 😱')">😱</span>
+        <span class="emoji" onclick="showResult('平静 😌')">😌</span>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        function showResult(feeling) {
+            let text = "";
+
+            if (feeling.includes("开心")) {
+                text = "😊 很棒！继续保持你的好心情！";
+            } else if (feeling.includes("生气")) {
+                text = "😡 生气也是正常的情绪，我们一起深呼吸 3 次好不好？";
+            } else if (feeling.includes("难过")) {
+                text = "😢 难过的时候，可以跟爸爸妈妈说说，让他们抱抱你。";
+            } else if (feeling.includes("害怕")) {
+                text = "😱 害怕的时候，你可以告诉大人，你不是一个人。";
+            } else if (feeling.includes("平静")) {
+                text = "😌 平静很好，这是最舒服的状态。";
+            }
+
+            document.getElementById("result").innerHTML = `
+                <p>你选择了：<strong>${feeling}</strong></p>
+                <p>${text}</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
