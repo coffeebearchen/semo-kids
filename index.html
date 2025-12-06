@@ -89,3 +89,194 @@
       margin-top: 14px;
       display: none;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .emoji-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      border: none;
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #f7f7ff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .emoji-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+      background: #eef3ff;
+    }
+
+    .emoji-label {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #666;
+    }
+
+    .emoji-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70px;
+    }
+
+    .result {
+      margin-top: 18px;
+      font-size: 15px;
+      color: #444;
+      min-height: 42px;
+    }
+
+    .result-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #999;
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: #bbb;
+    }
+
+    @media (max-width: 400px) {
+      .card {
+        padding: 20px 16px 24px;
+      }
+      .emoji-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 28px;
+      }
+      .emoji-item {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🧡 SEMO Kids</div>
+    <div class="title">情绪小测试</div>
+    <div class="subtitle">用一个小表情，告诉世界你现在的感受。</div>
+
+    <div class="tag">孩子端 · 超简版 MVP</div>
+
+    <div id="step-start">
+      <p style="font-size: 14px; color: #555; margin-bottom: 12px;">
+        小朋友可以点下面的按钮开始，<br />
+        选一个最像你现在心情的表情。
+      </p>
+      <button class="btn" onclick="startTest()">开始小测试 ▶</button>
+    </div>
+
+    <div id="step-emoji" style="display: none;">
+      <p style="font-size: 14px; color: #555; margin-bottom: 10px;">
+        现在，你的心情更像哪一个呢？
+      </p>
+      <div class="emoji-panel" id="emoji-panel">
+        <div class="emoji-item">
+          <button class="emoji-btn" onclick="showResult('happy')">😊</button>
+          <div class="emoji-label">开心</div>
+        </div>
+        <div class="emoji-item">
+          <button class="emoji-btn" onclick="showResult('angry')">😡</button>
+          <div class="emoji-label">生气</div>
+        </div>
+        <div class="emoji-item">
+          <button class="emoji-btn" onclick="showResult('sad')">😢</button>
+          <div class="emoji-label">难过</div>
+        </div>
+        <div class="emoji-item">
+          <button class="emoji-btn" onclick="showResult('scared')">😱</button>
+          <div class="emoji-label">害怕</div>
+        </div>
+        <div class="emoji-item">
+          <button class="emoji-btn" onclick="showResult('calm')">😌</button>
+          <div class="emoji-label">平静</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <div id="again" style="display: none; margin-top: 8px;">
+      <button class="btn" style="background:#4caf50; box-shadow:0 4px 10px rgba(76,175,80,.4);" onclick="resetTest()">
+        再选一次 🔁
+      </button>
+    </div>
+
+    <div class="hint">
+      建议家长陪同使用，用简单语言和孩子聊聊“为什么是这个表情”。
+    </div>
+
+    <div class="footer">
+      SEMO Kids · Emotion Check-in · MVP v2
+    </div>
+  </div>
+
+  <script>
+    function startTest() {
+      document.getElementById("step-start").style.display = "none";
+      document.getElementById("step-emoji").style.display = "block";
+      document.getElementById("emoji-panel").style.display = "flex";
+    }
+
+    function showResult(type) {
+      var title = "";
+      var text = "";
+
+      switch (type) {
+        case "happy":
+          title = "你现在的心情：开心 😊";
+          text = "太好了！记得把这份好心情分享给身边的人，可以给一个拥抱或者说一句“谢谢你”。";
+          break;
+        case "angry":
+          title = "你现在的心情：生气 😡";
+          text = "生气很正常。我们可以一起用“3 次深呼吸”小魔法：慢慢吸气——再慢慢呼气，重复三次。";
+          break;
+        case "sad":
+          title = "你现在的心情：难过 😢";
+          text = "难过的时候，可以告诉一个你信任的大人，让他们抱抱你，也可以画一幅画，把难过画出来。";
+          break;
+        case "scared":
+          title = "你现在的心情：害怕 😱";
+          text = "害怕的时候，你不是一个人。可以拉着大人的手，说出“我有点害怕”，一起想办法就没那么可怕了。";
+          break;
+        case "calm":
+          title = "你现在的心情：平静 😌";
+          text = "平静非常棒，就像一池安静的湖水。你可以在这种状态下做自己喜欢的事情，比如看书、画画或听音乐。";
+          break;
+      }
+
+      var resultDiv = document.getElementById("result");
+      resultDiv.innerHTML =
+        '<div class="result-title">' +
+        title +
+        "</div><div>" +
+        text +
+        "</div>";
+
+      document.getElementById("again").style.display = "block";
+    }
+
+    function resetTest() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("again").style.display = "none";
+      // 保留在 emoji 选择界面，方便孩子继续选择
+    }
+  </script>
+</body>
+</html>
